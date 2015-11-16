@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0-*",
+  "description": "RestTest Console Application",
+  "authors": [ "joasousa" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "dependencies": {
+    "Microsoft.AspNet.WebApi.Client": "5.2.3-beta1",
+    "Microsoft.Framework.Configuration.Json": "1.0.0-beta8",
+    "ODataPricing": "1.0.0-*"
+  },
+
+  "commands": {
+    "RestTest": "RestTest"
+  },
+
+  "frameworks": {
+    "dnx451": { }
+  }
+}

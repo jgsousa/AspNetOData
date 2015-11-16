@@ -1,0 +1,17 @@
+{
+    "version": "1.0.0-*",
+    "description": "ODataPricing Class Library",
+    "authors": [ "joasousa" ],
+    "tags": [ "" ],
+    "projectUrl": "",
+    "licenseUrl": "",
+
+    "dependencies": {
+        "Microsoft.AspNet.WebApi.Client": "5.2.3-beta1",
+        "Microsoft.Framework.Configuration.Json": "1.0.0-beta8"
+    },
+
+    "frameworks": {
+        "dnx451": { }
+    }
+}
