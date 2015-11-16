@@ -1,20 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using Microsoft.Framework.Configuration;
 using Sousa.PricingEngine.OData.SAP;
+using System;
+using System.Net.Http;
 
 namespace RestTest
 {
-    public class D
-    {
-        public List<string> EntitySets { get; set; }
-    }
-
-    public class RootObject
-    {
-        public D d { get; set; }
-    }
-
     public class Program
     {
         public IConfiguration Configuration { get; set; }
@@ -25,8 +16,20 @@ namespace RestTest
             Configuration = builder.Build();
 
             var serviceURL = Configuration["baseURL"];
-            var proxy2 = new SAPPricingSchemeProxy(serviceURL, new AuthenticationHeaderValue("Basic", "ZGVsb2l0dGU6c2FwMTIz"));
-            var result2 = proxy2.GetResults();
+            var proxy = new SAPPricingSchemeProxy(serviceURL, new AuthenticationHeaderValue("Basic", "ZGVsb2l0dGU6c2FwMTIz"));
+
+            try
+            {
+                var result = proxy.GetResults();
+                foreach (var item in result)
+                {
+                    Console.WriteLine("Esquema: " + item.SchemeId + " - " + item.Description);
+                }
+            }
+            catch(HttpRequestException e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }

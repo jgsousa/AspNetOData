@@ -46,7 +46,17 @@ namespace Sousa.PricingEngine.OData.SAP
             client.DefaultRequestHeaders.Authorization = _credentials;
 
             // List data response.
-            HttpResponseMessage response = client.GetAsync(options).Result;  // Blocking call!
+            HttpResponseMessage response = null;
+            try
+            {
+                response = client.GetAsync(options).Result;  // Blocking call!
+            }
+            catch(AggregateException e)
+            {
+                var exc = e.InnerExceptions[0];
+                throw new HttpRequestException(exc.InnerException.Message);
+            }
+
             if (response.IsSuccessStatusCode)
             {
                 try
@@ -55,16 +65,15 @@ namespace Sousa.PricingEngine.OData.SAP
                     jsonString.Wait();
                     return JsonConvert.DeserializeObject<D<baseclass>>(jsonString.Result);
                 }
-                catch (System.AggregateException e)
+                catch (AggregateException e)
                 {
-                    Console.WriteLine(e.Message);
+                    throw new HttpRequestException("JSON payload unparsable.");
                 }
             }
             else
             {
-                Console.WriteLine("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase);
+                throw new HttpRequestException("Bad request");
             }
-            return null;
         }
     }
 }
