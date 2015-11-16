@@ -7,7 +7,7 @@
   "licenseUrl": "",
 
   "dependencies": {
-    "Microsoft.AspNet.WebApi.Client": "5.2.3-beta1",
+    "Microsoft.AspNet.WebApi.Client": "5.2.3",
     "Microsoft.Framework.Configuration.Json": "1.0.0-beta8",
     "ODataPricing": "1.0.0-*"
   },
